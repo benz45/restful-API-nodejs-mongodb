@@ -1,4 +1,9 @@
-import { Schema, model, SchemaDefinitionProperty } from "mongoose";
+import {
+  Schema,
+  model,
+  SchemaDefinitionProperty,
+  HookNextFunction,
+} from "mongoose";
 import {
   object,
   string,
@@ -7,6 +12,8 @@ import {
   AnyObjectSchema,
   ref,
 } from "yup";
+import bcrypt from "bcrypt";
+import { get } from "config";
 import { PasingUserSchema, UserDocument } from "../model/user.model";
 
 export const pasingUserSchema = object({
@@ -50,5 +57,17 @@ const UserSchema = new Schema(
     versionKey: false,
   }
 );
+
+UserSchema.pre<UserDocument>("save", async function (next: HookNextFunction) {
+  let user = this;
+
+  const salt = await bcrypt.genSalt(get<number>("genSalt"));
+
+  const hash = bcrypt.hashSync(user.password, salt);
+
+  user.password = hash;
+
+  return next();
+});
 
 export default model<UserDocument>("user", UserSchema);

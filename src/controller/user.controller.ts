@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { createUserService } from "../service/user.service";
 import log from "../log";
 import { IResponse } from "../model/response.model";
-import { omit } from "lodash";
 
 export async function createUserHandler({ body }: Request, res: Response) {
   try {
@@ -11,7 +10,7 @@ export async function createUserHandler({ body }: Request, res: Response) {
     return res.json(<IResponse>{
       status: true,
       message: "success",
-      data: omit(user.toJSON(), ""),
+      data: user.toJSON(),
     });
   } catch (error) {
     log.error(error);
