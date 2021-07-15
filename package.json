@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "commonjs",
   "scripts": {
-    "dev": "nodemon --config nodemon.json src/app.ts"
+    "dev": "nodemon --config nodemon.json src/app.ts",
+    "debug": "nodemon --inspect src/app.ts",
+    "dev:debug": "nodemon --inspect src/app.ts"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

@@ -11,13 +11,15 @@ const app = Express();
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: false }));
 
-app.listen(port, host, () => {
-  // Server listing
-  log.info(`Server listing : http://${host}:${port}`);
+app
+  .listen(port, host, () => {
+    // Server listing
+    log.info(`Server listing : http://${host}:${port}`);
 
-  // Connection database
-  connectDatabase();
+    // Connection database
+    connectDatabase();
 
-  // Use the route after connected the database successful
-  routes(app);
-});
+    // Use the route after connected the database successful
+    routes(app);
+  })
+  .setTimeout(5000);

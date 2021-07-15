@@ -10,6 +10,7 @@ const connectDatabase = async () => {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    connectTimeoutMS: 1000,
   })
     .then(() => log.info(`Database connected : ${dbName}`))
     .catch((err: CallbackError) => {
