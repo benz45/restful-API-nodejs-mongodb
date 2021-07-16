@@ -1,9 +1,7 @@
 import { Express } from "express";
 import validateRequest from "./middleware/validate_request";
 import { validateCreateUserSchema } from "./schema/user.schema.validate";
-import { validateCreateSessionSchema } from "./schema/session.schema.validate";
 import { createUserHandler } from "./controller/user.controller";
-import { createSessionHandler } from "./controller/session.controller";
 
 const route = (app: Express) => {
   // Register user account
@@ -13,11 +11,7 @@ const route = (app: Express) => {
     createUserHandler
   );
 
-  app.post(
-    "/api/session",
-    validateRequest(validateCreateSessionSchema),
-    createSessionHandler
-  );
+  // app.post("/api/session", validateRequest());
 };
 
 export default route;

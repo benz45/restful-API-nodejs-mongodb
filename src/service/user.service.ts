@@ -13,6 +13,20 @@ export async function createUserService(
   }
 }
 
+export async function findUserService(email: UserDocument["email"]) {
+  try {
+    const user = await UserScema.findOne({ email });
+
+    if (user != null) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export async function validatePassword({
   username,
   password,
